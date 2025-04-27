@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "783263319930",
+    "project_id": "fitnesstracker-d9a52",
+    "storage_bucket": "fitnesstracker-d9a52.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:783263319930:android:5cc0e07d3d75a7e82bf8c3",
+        "android_client_info": {
+          "package_name": "hcmute.edu.vn.fitnesstracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy4foUPqLUW3f61PYKz6ZD20sKDbgvCL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

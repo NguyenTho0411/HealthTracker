@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Quyền -->
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Cho phép cài lên máy KHÔNG có step counter (override nếu có library khác khai báo bắt buộc) -->
+    <uses-feature
+        android:name="android.hardware.sensor.stepcounter"
+        android:required="false"
+        tools:replace="android:required" />
+
+    <!-- Nếu bạn muốn vẫn yêu cầu hoặc không yêu cầu detector/accelerometer, tương tự dùng tools:replace -->
+    <uses-feature
+        android:name="android.hardware.sensor.stepdetector"
+        android:required="false"
+        tools:replace="android:required" />
+
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="false"
+        tools:replace="android:required" />
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FitnessTracker"
+        tools:targetApi="31">
+        <activity
+            android:name=".healthArticles.HealthArticlesDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".healthArticles.HealthArticlesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".buymedicine.BuyMDOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cart.CartMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".buymedicine.BuyMedicineDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".buymedicine.BuyMedicineActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".labtest.LabTestOrderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".cart.CartLabActivity"
+            android:exported="false" />
+        <activity
+            android:name=".labtest.LabTestDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".labtest.LabTestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".findDoctor.BookAppointmentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".findDoctor.DoctorDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".findDoctor.Find_Doctor_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pedometerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
