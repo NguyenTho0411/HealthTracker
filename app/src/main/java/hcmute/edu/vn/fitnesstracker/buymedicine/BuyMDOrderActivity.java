@@ -40,7 +40,7 @@ public class BuyMDOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("username","");
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+                DataBase db = new DataBase(getApplicationContext());
                 db.addOrder(username,edname.getText().toString(),edAddress.getText().toString(),edContact.getText().toString(),Integer.parseInt(edPin.getText().toString()),date," ",Float.parseFloat(price[1]),"medicine");
                 db.removeCart(username,"medicine");
                 Toast.makeText(getApplicationContext(),"Your order is suscessfully",Toast.LENGTH_SHORT).show();

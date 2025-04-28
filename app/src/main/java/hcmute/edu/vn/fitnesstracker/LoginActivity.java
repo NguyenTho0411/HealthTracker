@@ -29,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String name = edName.getText().toString();
                 String pass = edPass.getText().toString();
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+                DataBase db = new DataBase(getApplicationContext());
                 if(name.length()==0 || pass.length()==0){
                     Toast.makeText(getApplicationContext(),"Please fill detail data",Toast.LENGTH_SHORT).show();
                 }else{

@@ -48,7 +48,7 @@ public class CartMedicineActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
 
-        DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+        DataBase db = new DataBase(getApplicationContext());
         ArrayList dbdata = db.getCart(username,"medicine");
         Toast.makeText(getApplicationContext(),""+dbdata,Toast.LENGTH_SHORT).show();
         float totalamount =0;

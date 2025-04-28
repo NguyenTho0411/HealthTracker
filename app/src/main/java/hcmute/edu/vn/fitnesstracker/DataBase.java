@@ -5,156 +5,189 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
-import androidx.annotation.Nullable;
-
 import java.util.ArrayList;
 
 public class DataBase extends SQLiteOpenHelper {
-    public DataBase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
+    private static final String DB_NAME = "health_care_db";
+    private static final int DB_VERSION = 2;
+
+    public DataBase(Context context) {
+        super(context, DB_NAME, null, DB_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String query1 = "create table users(username text,email text,password text)";
-        String query2 = "create table cart(username text,product text,price float,otype text)";
-        String query3 = "create table order1(username text,fullname text,address text,contact text,pincode int,date text,time text,amount float,otype text)";
-        db.execSQL(query1);
-        db.execSQL(query2);
-        db.execSQL(query3);
+        db.execSQL("CREATE TABLE users (username TEXT, email TEXT, password TEXT)");
+        db.execSQL("CREATE TABLE cart (username TEXT, product TEXT, price FLOAT, otype TEXT)");
+        db.execSQL("CREATE TABLE orders (username TEXT, fullname TEXT, address TEXT, contact TEXT, pincode INTEGER, date TEXT, time TEXT, amount FLOAT, otype TEXT)");
+        db.execSQL("CREATE TABLE medical_records (username TEXT, record_type TEXT, public_id TEXT, secure_url TEXT, upload_date TEXT)");
+        db.execSQL("CREATE TABLE event_media (event_id TEXT, media_type TEXT, public_id TEXT, secure_url TEXT, upload_date TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
-    public void register(String username,String email,String password){
-        ContentValues content = new ContentValues();
-        content.put("username",username);
-        content.put("email",email);
-        content.put("password",password);
-        SQLiteDatabase database = getWritableDatabase();
-        database.insert("users",null,content);
-        database.close();
-    }
-
-    public int login(String username,String password){
-        int result =0;
-        String[] str = new String[2];
-        str[0] = username;
-        str[1] = password;
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("select * from users where username=? and password=?",str);
-            if(c.moveToFirst()){
-                result=1;
-            }
-            return result;
-    }
-
-    public void addtoCart(String username,String product,Float price,String otype){
-        ContentValues content = new ContentValues();
-        content.put("username",username);
-        content.put("product",product);
-        content.put("price",price);
-        content.put("otype",otype);
-        SQLiteDatabase database = getWritableDatabase();
-        database.insert("cart",null,content);
-       database.close();
-    }
-    public int checkCart(String username,String product){
-        int result =0;
-        String[] str = new String[2];
-        str[0] = username;
-        str[1] = product;
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("select * from cart where username=? and product=?",str);
-        if(c.moveToFirst()){
-            result=1;
+        if (oldVersion < 2) {
+            db.execSQL("CREATE TABLE medical_records (username TEXT, record_type TEXT, public_id TEXT, secure_url TEXT, upload_date TEXT)");
+            db.execSQL("CREATE TABLE event_media (event_id TEXT, media_type TEXT, public_id TEXT, secure_url TEXT, upload_date TEXT)");
         }
-        return result;
     }
-    public void removeCart(String username,String otype){
-        String[]  str= new String[2];
-        str[0] = username;
-        str[1] = otype;
+
+    public void register(String username, String email, String password) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete("cart","username=? and otype=?",str);
-       db.close();
-    }
-    public ArrayList getCart(String username,String otype){
-        ArrayList<String> arr = new ArrayList<>();
-        String[] str = new String[2];
-        str[0] = username;
-        str[1] =otype;
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("select * from cart where username=? and otype=?",str);
-        if(c.moveToFirst()){
-            do{
-                String product = c.getString(1);
-                String price = c.getString(2);
-                arr.add(product+"$"+price);
-            }while (c.moveToNext());
-        }
-        return arr;
-
-    }
-
-    public void addOrder(String username,String fullname,String address,String contact,int pincode,String date,String time,float price,String otype){
-        ContentValues cv = new ContentValues();
-        cv.put("username",username);
-        cv.put("fullname",fullname);
-        cv.put("address",address);
-        cv.put("contact",contact);
-        cv.put("pincode",pincode);
-        cv.put("date",date);
-        cv.put("time",time);
-        cv.put("amount",price);
-        cv.put("otype",otype);
-        SQLiteDatabase db = getWritableDatabase();
-        db.insert("order1",null,cv);
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("email", email);
+        values.put("password", password);
+        db.insert("users", null, values);
         db.close();
+    }
 
-    }
-    public ArrayList gerOrderData(String username){
-        ArrayList<String> arr = new ArrayList<>();
+    public int login(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
-        String[] str = new String[1];
-        str[0] = username;
-        Cursor c = db.rawQuery("select * from order1 where username= ?",str);
-        if(c.moveToFirst()){
-            do{
-                arr.add(c.getString(1)+"$"+c.getString(2)+"$"+c.getString(3)+"$"+c.getString(4)+"$"+c.getString(5)+"$"+
-                        c.getString(6)+"$"+c.getString(7)+"$"+c.getString(8));
-            }while (c.moveToNext());
-        }
-        db.close();
-        return arr;
-    }
-    public int checkAppointmentExists(String username,String fullname,String address,String contact,String date,String time){
-        int result =0;
-        String[] str = new String[6];
-        str[0] = username;
-        str[1] = fullname;
-        str[2] = address;
-        str[3] = contact;
-        str[4] =  date;
-        str[5] = time;
-        SQLiteDatabase db = getReadableDatabase();
-        Cursor c = db.rawQuery("select * from order1 where username= ? and fullname = ? and address = ? and contact = ? and date = ? and time = ? ",str);
-        if(c.moveToFirst()){
-            result=1;
-        }
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username=? AND password=?", new String[]{username, password});
+        int result = cursor.moveToFirst() ? 1 : 0;
+        cursor.close();
         db.close();
         return result;
     }
-    public void removeOrder(String fullname,String otype,String address){
-        String[]  str= new String[3];
-        str[0] = fullname;
-        str[1] = otype;
-        str[2] = address;
+
+    public void addtoCart(String username, String product, Float price, String otype) {
         SQLiteDatabase db = getWritableDatabase();
-        db.delete("order1","fullname=? and otype=? and address=?",str);
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("product", product);
+        values.put("price", price);
+        values.put("otype", otype);
+        db.insert("cart", null, values);
         db.close();
+    }
+
+    public int checkCart(String username, String product) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE username=? AND product=?", new String[]{username, product});
+        int result = cursor.moveToFirst() ? 1 : 0;
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    public void removeCart(String username, String otype) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("cart", "username=? AND otype=?", new String[]{username, otype});
+        db.close();
+    }
+
+    public ArrayList<String> getCart(String username, String otype) {
+        ArrayList<String> arr = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM cart WHERE username=? AND otype=?", new String[]{username, otype});
+        if (cursor.moveToFirst()) {
+            do {
+                arr.add(cursor.getString(1) + "$" + cursor.getString(2));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return arr;
+    }
+
+    public void addOrder(String username, String fullname, String address, String contact, int pincode, String date, String time, float price, String otype) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("fullname", fullname);
+        values.put("address", address);
+        values.put("contact", contact);
+        values.put("pincode", pincode);
+        values.put("date", date);
+        values.put("time", time);
+        values.put("amount", price);
+        values.put("otype", otype);
+        db.insert("orders", null, values);
+        db.close();
+    }
+
+    public ArrayList<String> getOrderData(String username) {
+        ArrayList<String> arr = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM orders WHERE username=?", new String[]{username});
+        if (cursor.moveToFirst()) {
+            do {
+                arr.add(cursor.getString(1) + "$" + cursor.getString(2) + "$" + cursor.getString(3) + "$" +
+                        cursor.getString(4) + "$" + cursor.getString(5) + "$" + cursor.getString(6) + "$" +
+                        cursor.getString(7) + "$" + cursor.getString(8));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return arr;
+    }
+
+    public int checkAppointmentExists(String username, String fullname, String address, String contact, String date, String time) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM orders WHERE username=? AND fullname=? AND address=? AND contact=? AND date=? AND time=?",
+                new String[]{username, fullname, address, contact, date, time});
+        int result = cursor.moveToFirst() ? 1 : 0;
+        cursor.close();
+        db.close();
+        return result;
+    }
+
+    public void removeOrder(String fullname, String otype, String address) {
+        SQLiteDatabase db = getWritableDatabase();
+        db.delete("orders", "fullname=? AND otype=? AND address=?", new String[]{fullname, otype, address});
+        db.close();
+    }
+
+    public void addMedicalRecord(String username, String recordType, String publicId, String secureUrl, String uploadDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("username", username);
+        values.put("record_type", recordType);
+        values.put("public_id", publicId);
+        values.put("secure_url", secureUrl);
+        values.put("upload_date", uploadDate);
+        db.insert("medical_records", null, values);
+        db.close();
+    }
+
+    public ArrayList<String> getMedicalRecords(String username) {
+        ArrayList<String> records = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM medical_records WHERE username=?", new String[]{username});
+        if (cursor.moveToFirst()) {
+            do {
+                records.add(cursor.getString(1) + "$" + cursor.getString(3) + "$" + cursor.getString(4));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return records;
+    }
+
+    public void addEventMedia(String eventId, String mediaType, String publicId, String secureUrl, String uploadDate) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("event_id", eventId);
+        values.put("media_type", mediaType);
+        values.put("public_id", publicId);
+        values.put("secure_url", secureUrl);
+        values.put("upload_date", uploadDate);
+        db.insert("event_media", null, values);
+        db.close();
+    }
+
+    public ArrayList<String> getEventMedia(String eventId) {
+        ArrayList<String> media = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM event_media WHERE event_id=?", new String[]{eventId});
+        if (cursor.moveToFirst()) {
+            do {
+                media.add(cursor.getString(1) + "$" + cursor.getString(3) + "$" + cursor.getString(4));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return media;
     }
 }

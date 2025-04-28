@@ -42,8 +42,8 @@ public class LabTestOrderActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("username","").toString();
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
-                 db.addOrder(username,edname.getText().toString(),edAddress.getText().toString(),edContact.getText().toString(),Integer.parseInt(edPin.getText().toString()),date,time,Float.parseFloat(price[1]),"lab test" );
+                DataBase db = new DataBase(getApplicationContext());
+                db.addOrder(username,edname.getText().toString(),edAddress.getText().toString(),edContact.getText().toString(),Integer.parseInt(edPin.getText().toString()),date,time,Float.parseFloat(price[1]),"lab test" );
                 db.removeCart(username,"lab test");
                 Toast.makeText(getApplicationContext(),"Your order is suscessfully",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LabTestOrderActivity.this, HomeActivity.class));

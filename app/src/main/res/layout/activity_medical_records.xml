@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#F5F5F5">
+
+    <Spinner
+        android:id="@+id/spinner_record_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/record_type_description"
+        android:background="@drawable/rounded_edittext"
+        android:elevation="4dp"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btn_upload"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/upload_medical_record"
+        android:contentDescription="@string/upload_medical_record_description"
+        android:background="@drawable/rounded_button"
+        android:elevation="4dp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:contentDescription="@string/loading_description"
+        android:indeterminateTint="#6200EA"
+        android:layout_marginBottom="16dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_records"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:contentDescription="@string/medical_records_list_description"
+        android:background="@drawable/rounded_container"
+        android:clipToPadding="false"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/btn_back"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="@string/back"
+        android:contentDescription="@string/back_description"
+        android:background="@drawable/rounded_button_secondary"
+        android:elevation="4dp"
+        android:textColor="#6200EA"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
