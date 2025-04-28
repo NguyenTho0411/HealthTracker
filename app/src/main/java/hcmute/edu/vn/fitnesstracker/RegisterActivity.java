@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String email = edEmail.getText().toString();
                 String pass = edPass.getText().toString();
                 String cfpass = edCfPass.getText().toString();
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+                DataBase db = new DataBase(getApplicationContext());
                 if(name.length()==0 || pass.length()==0 || email.length()==0 || cfpass.length()==0){
                     Toast.makeText(getApplicationContext(),"Please fill detail data",Toast.LENGTH_SHORT).show();
                 }else{

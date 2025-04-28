@@ -38,11 +38,11 @@ ArrayList list;
             }
         });
 
-        DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+        DataBase db = new DataBase(getApplicationContext());
         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username","");
         dbdata= new ArrayList<>();
-       dbdata = db.gerOrderData(username);
+       dbdata = db.getOrderData(username);
         order_details = new String[dbdata.size()][];
 
         for(int i=0;i<order_details.length;i++){
@@ -91,7 +91,7 @@ ArrayList list;
 
     }
     private void showCFDialog(int position) {
-        DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+        DataBase db = new DataBase(getApplicationContext());
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmation")
                 .setMessage("Are you sure you want to remove this order?")

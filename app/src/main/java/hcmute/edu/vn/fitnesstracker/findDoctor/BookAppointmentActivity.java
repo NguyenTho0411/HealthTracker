@@ -88,7 +88,7 @@ public class BookAppointmentActivity extends AppCompatActivity {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+                DataBase db = new DataBase(getApplicationContext());
                 SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
                 String username = sharedPreferences.getString("username","").toString();
                 if(db.checkAppointmentExists(username,title+"=>" +  name,address,contactnumber,btnDate.getText().toString(),btnTime.getText().toString())==1){

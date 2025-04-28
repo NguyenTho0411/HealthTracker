@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+
 
     <!-- Cho phép cài lên máy KHÔNG có step counter (override nếu có library khác khai báo bắt buộc) -->
     <uses-feature
@@ -32,7 +38,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FitnessTracker"
+        tools:replace="android:fullBackupContent"
         tools:targetApi="31">
+        <meta-data
+            android:name="cloudinary://331468291844525:csogYjTYqLZuH4oThYH8is9Tes8@dh0jqp0gf"
+            android:value="cloudinary://@myCloudName"/>
         <activity
             android:name=".healthArticles.HealthArticlesDetailActivity"
             android:exported="false" />
@@ -84,6 +94,8 @@
         <activity
             android:name=".pedometerActivity"
             android:exported="false" />
+        <activity android:name=".medicalrecords.MedicalRecordsActivity" />
+        <activity android:name=".eventmedia.EventMediaActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">

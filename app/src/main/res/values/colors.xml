@@ -16,4 +16,8 @@
     <color name="darkGray">#FF868687</color>
     <color name="colorButton">#2B7EDC</color>
 
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
 </resources>

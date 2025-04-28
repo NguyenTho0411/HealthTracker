@@ -74,4 +74,35 @@
         <item>You are slightly overweight. You may be advised to lose some weight for health reasons.Take healthy diet an Do some workouts.Daily Morning walk will keep you fit and Healthy.  </item>
         <item>You are heavily overweight.Your health may be at risk if you do not lose weight.But Don\'t Worry Follow our Portion Control and Do some Workouts to live a Healthy Lifestyle </item>
     </string-array>
+    <string name="error_file_access">Không thể truy cập tệp. Vui lòng thử lại.</string>
+    <string name="please_login">Vui lòng đăng nhập</string>
+    <string name="no_network">Không có kết nối mạng. Vui lòng kiểm tra lại.</string>
+    <string name="file_too_large">Tệp quá lớn. Vui lòng chọn tệp nhỏ hơn 100MB.</string>
+    <string name="upload_success">Tải lên thành công</string>
+    <string name="upload_failed">Tải lên thất bại</string>
+    <string name="database_error">Lỗi khi truy cập cơ sở dữ liệu</string>
+    <string name="error_file_path">Không thể lấy đường dẫn tệp</string>
+    <string name="storage_permission_title">Yêu cầu quyền truy cập bộ nhớ</string>
+    <string name="storage_permission_message">Ứng dụng cần quyền truy cập bộ nhớ để tải lên hồ sơ y tế. Vui lòng cấp quyền để tiếp tục.</string>
+    <string name="storage_permission_denied">Quyền truy cập bộ nhớ bị từ chối. Vui lòng cấp quyền để tiếp tục.</string>
+    <string name="storage_permission_denied_permanently">Quyền truy cập bộ nhớ bị từ chối vĩnh viễn. Vui lòng cấp quyền trong Cài đặt.</string>
+    <string name="agree">Đồng ý</string>
+    <string name="cancel">Hủy</string>
+    <string name="record_type_description">Chọn loại hồ sơ y tế</string>
+    <string name="upload_medical_record">Upload Medical Record</string>
+    <string name="upload_event_media">Upload Event Media</string>
+    <string name="upload_medical_record_description">Nút tải lên hồ sơ y tế</string>
+    <string name="back_description">Nút quay lại màn hình chính</string>
+    <string name="loading_description">Đang tải lên hồ sơ y tế</string>
+    <string name="medical_records_list_description">Danh sách hồ sơ y tế</string>
+
+    <!-- Chuỗi mới cho EventMediaActivity -->
+    <string name="enter_event_id">Vui lòng nhập ID sự kiện</string>
+    <string name="event_id_description">Trường nhập ID sự kiện</string>
+    <string name="upload_media">Tải lên phương tiện</string>
+    <string name="upload_media_description">Nút tải lên phương tiện sự kiện</string>
+    <string name="media_list_description">Danh sách phương tiện sự kiện</string>
+    <string name="share_media_text">Xem phương tiện sự kiện này: %s</string>
+    <string name="share_media_title">Chia sẻ phương tiện sự kiện</string>
+    <string name="cloudinary_init_failed">Failed to initialize Cloudinary. Please contact support.</string>
 </resources>

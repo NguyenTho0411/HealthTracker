@@ -48,7 +48,7 @@ public class LabTestDetailActivity extends AppCompatActivity {
                 String username = sharedPreferences.getString("username","").toString();
                 String product = tv1.getText().toString();
                 Float price = Float.parseFloat(it.getStringExtra("text3").toString());
-                DataBase db =  new DataBase(getApplicationContext(),"health_care_db",null,1);
+                DataBase db = new DataBase(getApplicationContext());
                 if(db.checkCart(username,product)==1){
                     Toast.makeText(getApplicationContext(),"Product already added",Toast.LENGTH_SHORT).show();
                 }else{
