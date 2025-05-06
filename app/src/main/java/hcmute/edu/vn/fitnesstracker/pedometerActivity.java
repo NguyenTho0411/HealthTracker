@@ -3,10 +3,12 @@ package hcmute.edu.vn.fitnesstracker;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
@@ -15,12 +17,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class pedometerActivity extends AppCompatActivity  implements SensorEventListener {
-
+    private static final int ACTIVITY_RECOGNITION_REQUEST_CODE = 100;
     private SensorManager sensorManager;
     private Sensor stepDetectorSensor;
     private Sensor accelerometer;
@@ -55,6 +59,12 @@ public class pedometerActivity extends AppCompatActivity  implements SensorEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (!isGrantedPermission()){
+                requestPermissions();
+            }
+        }
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR);
@@ -115,6 +125,22 @@ public class pedometerActivity extends AppCompatActivity  implements SensorEvent
             }
         });
 
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public boolean isGrantedPermission(){
+        // check if user have granted sensor permission
+        return ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.ACTIVITY_RECOGNITION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public void requestPermissions(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACTIVITY_RECOGNITION},
+                    ACTIVITY_RECOGNITION_REQUEST_CODE
+                    );
+        }
     }
 
     @Override
